@@ -24,7 +24,7 @@
  ***
  I will show you my creation:
  
-![1945](http://kikito.github.io/anim8/1945.png)
+![Animation](http://andyesprg.github.io/shooter-game-with-love2D/img_readme/Animation.gif)
  
  
 
