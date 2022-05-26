@@ -1,7 +1,7 @@
 # shooter game with love2D
  This is a space game where you have to try to survive to enemies, good luck!
  ***
- 
+ ![animation2](http://andyesprg.github.io/shooter-game-with-love2D/img_readme/animation2.gif) 
  
  I am new at Love2D, but, I started this project with a tutorial of 200 lines of code and then, with some help, I finish this game with 1600. 
  This code can be long for the newbies like me, is for that reason that I tried to explain (in spanish) the functions of each part of it.
@@ -25,8 +25,6 @@
  I will show you my creation:
  
 ![Animation](http://andyesprg.github.io/shooter-game-with-love2D/img_readme/Animation.gif)
-
-![animation2](http://andyesprg.github.io/shooter-game-with-love2D/img_readme/animation2.gif) 
  
 
  ***
