@@ -26,7 +26,7 @@
  ![Animation](http://andyesprg.github.io/shooter-game-with-love2D/img_readme/Animation.gif)
  
  
- ![animation2](http://andyesprg.github.io/shooter-game-with-love2D/img_readme/animation2.gif) 
+ ![animation2](C:\Users\andrea.escudero\Downloads) 
  
 
  ***
