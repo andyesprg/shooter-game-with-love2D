@@ -21,6 +21,10 @@
 	
  This game is so simple, it doesn't even have levels, but I hope you can use it to learn how lua works. 
  
+ ***
+ I will show you my creation:
+ ![img](C:\Users\andrea.escudero\Documents\lua\sti\Animation.gif)
+ 
  
  
  
