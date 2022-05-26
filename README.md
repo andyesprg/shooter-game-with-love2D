@@ -24,8 +24,7 @@
  ***
  I will show you my creation:
  
- ![til](/assets/Animacion.gif)
- 
+![1945](http://kikito.github.io/anim8/1945.png)
  
  
 
