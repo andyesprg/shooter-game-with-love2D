@@ -23,14 +23,12 @@
  
  ***
  I will show you my creation:
- ![til](C:\Users\andrea.escudero\Documents\lua\sti\Animacion.gif)
+ 
+ ![til](/assets/Animacion.gif)
  
  
  
- 
- 
- 
- 
+
  ***
  ***
  P.S. You can move Spock (it's the little boy on the menu, I know, it's a bit poor) just try to press the keys of the letters of his name and the magic *will appear*.
