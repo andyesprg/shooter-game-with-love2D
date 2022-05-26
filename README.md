@@ -25,7 +25,7 @@
  
  ![Animation](http://andyesprg.github.io/shooter-game-with-love2D/img_readme/Animation.gif)
  
- < ![123](http://andyesprg.github.io/shooter-game-with-love2D/img_readme/123.gif)
+  ![Anima](http://andyesprg.github.io/shooter-game-with-love2D/img_readme/Anima.png)
 
  ***
  ***
