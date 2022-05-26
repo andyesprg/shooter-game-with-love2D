@@ -28,7 +28,7 @@
  hola
  
  ![animation2](/img_readme/animation2.gif) 
- 
+  ![Animation](http://andyesprg.github.io/shooter-game-with-love2D/img_readme/Animation.gif)
 
  ***
  ***
