@@ -23,7 +23,7 @@
  
  ***
  I will show you my creation:
- ![img](C:\Users\andrea.escudero\Documents\lua\sti\Animation.gif)
+ ![qownnotes-media-YvPAin](media/qownnotes-media-YvPAin.png)
  
  
  
