@@ -122,6 +122,23 @@ function love.load()
 		star.color = colores
 		table.insert(stars, star)	
 	end
+	
+	--Para la propulsión del enemigo con un emisor de partículas
+	local img = love.graphics.newImage('logo.png')
+	psystem = love.graphics.newParticleSystem(img, 100)
+	psystem:setParticleLifetime(1, 2)
+	psystem:setEmissionRate(50)
+	psystem:setSizeVariation(1)
+	psystem:setLinearAcceleration(-700, -100, 40, 40) 
+	psystem:setColors(1, 1, 1, 1, 1, 1, 1, 0) 
+	--
+	local img = love.graphics.newImage('logo.png')
+	system = love.graphics.newParticleSystem(img, 100)
+	system:setParticleLifetime(0, 0.7)
+	system:setEmissionRate(50)
+	system:setSizeVariation(1)
+	system:setLinearAcceleration(-100, -500, 100, 40) 
+	system:setColors(1, 1, 1, 1, 1, 1, 1, 0) 
 
 	--Imágenes
 	player.img = love.graphics.newImage('assets/plane.png')
@@ -168,6 +185,8 @@ end
 -- update --
 --        --
 function love.update(dt)
+	--Emisor de estrellas
+	psystem:update(dt)
 	--CREACIÓN ANIMACIÓN SEL TÍTULO
 	bulletmenu.x = bulletmenu.x + 300 * dt
 	collisionsbulletmenu(dt)
@@ -236,6 +255,9 @@ end
 --      --
 function love.draw()
 	if game_state == 'menu' then
+		--Emisor de partículas
+		love.graphics.draw(psystem, enemymenu.x - 5, enemymenu.y + 44)
+		
 		draw_menu()
 		pierde:play()
 	elseif game_state == 'how-to-play' then
@@ -246,7 +268,7 @@ function love.draw()
 			soundtrack:play()
 			pierde:stop()
 			explo2 = 71
-			explo = 5		
+			explo = 5	
 		else
 			pierde:play()
 			soundtrack:stop()
@@ -1412,6 +1434,8 @@ function game_update(dt)
 	if bomb == true then
 		createTimerba(dt)
 	end
+	--Emisión de partículas
+	system:update(dt)
 end
 
 
@@ -1529,7 +1553,9 @@ function draw_game2()
 		love.graphics.print("Press 'R' to restart", love.graphics:getWidth()/2 - 165, love.graphics:getHeight()/2 - 30)
 		--cohete que sale después de que muera nave
 		for i, soldier in ipairs(soldiparachute) do
-			love.graphics.draw(soldier.img, soldier.x, soldier.y)
+			love.graphics.draw(soldier.img, soldier.x - 20, soldier.y)
+			--Emisores de partículas
+			love.graphics.draw(system, soldier.x, soldier.y)
 		end
 	end
 		
