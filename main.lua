@@ -574,7 +574,6 @@ end
 --create enemigos y sus posiciones
 --enemy
 function createTimerEnemy(dt)
-	if isAlive then
 		createEnemyTimer = createEnemyTimer - (1 * dt)
 		if createEnemyTimer < 0 then
 			createEnemyTimer = createEnemyTimerMax
@@ -583,7 +582,6 @@ function createTimerEnemy(dt)
 			table.insert(enemies, newEnemy)
 			enemigos = enemigos + 1
 		end
-	end
 end
 
 function positionenemy(dt)
@@ -597,7 +595,6 @@ end
 
 --alien
 function createTimeralien(dt)
-	if isAlive then
 		createalienTimer = createalienTimer - (1 * dt)
 		if createalienTimer < 0 then
 			createalienTimer = createalienTimerMax
@@ -605,7 +602,6 @@ function createTimeralien(dt)
 			newalien = { x = randomNumber, y = -10, img = alienImg }
 			table.insert(aliens, newalien)
 		end
-	end
 end
 
 function moveToPlayer(dt)
@@ -652,7 +648,7 @@ function createTimerbomba(dt)
 	if isAlive then
 	createbombaTimer = createbombaTimer - (1  * dt)
 		if createbombaTimer < 0 then
-			if love.keyboard.isDown('b') then
+			if love.keyboard.isDown('space') then
 				newbomba = { x = player.x, y = player.y, img = bombaImg }
 				table.insert(bombas, newbomba)
 				bomb = true
@@ -675,7 +671,7 @@ end
 
 function positionbomba(dt)
 	for i, bomba in ipairs(bombas) do
-		bomba.y = bomba.y - (200 * dt)        -- si se quita essto los enemigos salen mal
+		bomba.y = bomba.y - (240 * dt)        -- si se quita essto los enemigos salen mal
 	end
 end
 
@@ -1443,23 +1439,49 @@ end
 -- Drawing --
 --         --
 function draw_game2()
+	--corazones
+	if corazones == 1 then
+		love.graphics.draw(vidaImg, 20, 20)
+	elseif corazones == 2 then
+		love.graphics.draw(vidaImg, 20, 20)
+		love.graphics.draw(vidaImg, 50, 20)
+	elseif corazones == 3 then
+		love.graphics.draw(vidaImg, 20, 20)
+		love.graphics.draw(vidaImg, 50, 20)
+		love.graphics.draw(vidaImg, 80, 20)
+	elseif corazones == 4 then
+		love.graphics.draw(vidaImg, 20, 20)
+		love.graphics.draw(vidaImg, 50, 20)
+		love.graphics.draw(vidaImg, 80, 20)
+		love.graphics.draw(vidaImg, 110, 20)
+	elseif corazones > 4 then
+		love.graphics.draw(vidaImg, 20, 20)
+		love.graphics.draw(vidaImg, 50, 20)
+		love.graphics.draw(vidaImg, 80, 20)
+		love.graphics.draw(vidaImg, 110, 20)
+		love.graphics.draw(vidaImg, 140, 20)
+	else
+		love.graphics.setColor(255, 0, 0)
+		love.graphics.print("Game over", 20, 20)
+	end	
+	
 	--score
 	if score == 0 then 
 	    love.graphics.push()	
 		love.graphics.setColor(255, 0, 0)
 		if ventana == false then
-			love.graphics.print("Score: " .. tostring(score), love.graphics:getWidth()/1.15, 20)
+			love.graphics.print("Score: " .. tostring(score), 12, 50)
 		else
-			love.graphics.print("Score: " .. tostring(score), love.graphics:getWidth()/1.11, 20)
+			love.graphics.print("Score: " .. tostring(score), 12, 50)
 		end
 		love.graphics.pop()
 	else
 	    love.graphics.push()	
 		love.graphics.setColor(0, 255, 0)
 		if ventana == false then
-			love.graphics.print("Score: " .. tostring(score), love.graphics:getWidth()/1.17, 20)
+			love.graphics.print("Score: " .. tostring(score), 12, 50)
 		else
-			love.graphics.print("Score: " .. tostring(score), love.graphics:getWidth()/1.13, 20)
+			love.graphics.print("Score: " .. tostring(score), 12, 50)
 		end
 		love.graphics.pop()
 	end
@@ -1475,6 +1497,20 @@ function draw_game2()
 	love.graphics.print("Bullets: " .. tostring(balas), 12, love.graphics:getHeight()/1.13)
 	love.graphics.pop()
 	
+	--enemy
+	for i, enemy in ipairs(enemies) do
+		love.graphics.draw(enemy.img, enemy.x, enemy.y)
+		if debug then
+			love.graphics.rectangle("line", enemy.x, enemy.y, 95, 90)
+		end
+	end
+	--alien
+	for i, alien in ipairs(aliens) do
+		love.graphics.draw(alien.img, alien.x, alien.y)
+		if debug then
+			love.graphics.rectangle("line", alien.x, alien.y, 90, 40)
+		end
+	end
 		
 	--if isAlive ... 
 	if isAlive then
@@ -1483,24 +1519,10 @@ function draw_game2()
 		if debug then
 			love.graphics.rectangle("line", player.x, player.y, 84, 90)
 		end
-		--enemy
-		for i, enemy in ipairs(enemies) do
-			love.graphics.draw(enemy.img, enemy.x, enemy.y)
-			if debug then
-				love.graphics.rectangle("line", enemy.x, enemy.y, 95, 90)
-			end
-		end
 		--bomba
 		for i, bomba in ipairs(bombas) do
 		love.graphics.draw(bomba.img, bomba.x, bomba.y)
 		end		
-		--alien
-		for i, alien in ipairs(aliens) do
-			love.graphics.draw(alien.img, alien.x, alien.y)
-			if debug then
-				love.graphics.rectangle("line", alien.x, alien.y, 90, 40)
-			end
-		end
 		--heart
 		for i, heart in ipairs(vidas) do
 			love.graphics.draw(heart.img, heart.x, heart.y)
@@ -1508,6 +1530,8 @@ function draw_game2()
 		--malheart
 		for i, malheart in ipairs(heartmal) do
 			love.graphics.draw(malheart.img, malheart.x, malheart.y)
+			--Emisores de partículas
+			love.graphics.draw(system, malheart.x + 18, malheart.y + 10)
 		end
 		--joker
 		for q, joke in ipairs(joker) do
@@ -1562,7 +1586,7 @@ function draw_game2()
 	--debug	
 	if debug then
 		fps = tostring(love.timer.getFPS())
-		love.graphics.print("Current FPS: "..fps, 12, 50)
+		love.graphics.print("Current FPS: "..fps, 12, 90)
 	end
 
 	
@@ -1600,31 +1624,4 @@ function draw_game2()
 		love.graphics.rectangle( "fill", star.x, star.y, 2, 3)
 		love.graphics.pop()
 	end
-	
-	
-	--corazones
-	if corazones == 1 then
-		love.graphics.draw(vidaImg, 20, 20)
-	elseif corazones == 2 then
-		love.graphics.draw(vidaImg, 20, 20)
-		love.graphics.draw(vidaImg, 50, 20)
-	elseif corazones == 3 then
-		love.graphics.draw(vidaImg, 20, 20)
-		love.graphics.draw(vidaImg, 50, 20)
-		love.graphics.draw(vidaImg, 80, 20)
-	elseif corazones == 4 then
-		love.graphics.draw(vidaImg, 20, 20)
-		love.graphics.draw(vidaImg, 50, 20)
-		love.graphics.draw(vidaImg, 80, 20)
-		love.graphics.draw(vidaImg, 110, 20)
-	elseif corazones > 4 then
-		love.graphics.draw(vidaImg, 20, 20)
-		love.graphics.draw(vidaImg, 50, 20)
-		love.graphics.draw(vidaImg, 80, 20)
-		love.graphics.draw(vidaImg, 110, 20)
-		love.graphics.draw(vidaImg, 140, 20)
-	else
-		love.graphics.setColor(255, 0, 0)
-		love.graphics.print("Game over", 20, 20)
-	end	
 end
