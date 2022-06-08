@@ -4,6 +4,12 @@ local menus = { 'Play', 'Screen', 'Exit' }
 local selected_menu_item = 1
 
 
+--Para spline
+local gr, pi, sin, cos, atan2	= love.graphics, math.pi, math.sin, math.cos, math.atan2
+local sqrt, floor, max			= math.sqrt, math.floor, math.max
+require 'spline'
+
+
 --Tontería menú título
 enemymenu = { x = -80, y = love.graphics:getHeight()/5 + 10, speed = 200}
 bulletmenu = { x = -80, y = love.graphics:getHeight()/5 + 50, speed = 100}
@@ -178,6 +184,37 @@ function love.load()
 	--Carga spock y su frase
 	spock = {x = love.graphics:getWidth()/1.1, y = love.graphics:getHeight()/1.25, speed = 220, img = spockImg}
 	frase = {x = love.graphics:getWidth()/1.2 - 30, y = love.graphics:getHeight()/1.25 + 30, speed = 220, img = fraseImg}
+
+	----spline
+	fly = {
+	imagene	= gr.newImage( 'fly.png' ),
+	width	= 104,		-- spritesheet images not uniformally spaced
+	height	= 75,
+	scale	= 0.65,
+	frame	= 1,
+	tcur	= 0,		-- lapsed time
+	tmax	= 0.03,		-- time limit (when frame should be changed)
+	angle	= 0,
+	update	= function( self, dt )
+		self.tcur		= self.tcur + dt
+		if self.tcur	> self.tmax then		-- change frame
+		self.tcur	= 0						-- reset timer
+			fly.step = fly.step < #fly.pth and fly.step+1 or 2
+			end
+		end,
+	draw	= function( f )
+		gr.setColor( 255, 255, 255 )
+		gr.draw( f.imagene, f.x, f.y, f.angle-pi, f.scale, f.scale, f.width/2, f.height/2 )
+		end,
+	cp	= { {20,650},{190,650},{190,750},{150,750},{150,700},{240,700},{240,600},
+			{180,610},{180,630},{400,640},{400,780},{120,780},{150,650},{20,650}},
+	step				= 2,
+	showpath			= false,
+	showcomtrolpoints	= false,
+	showspline			= false,
+	po					= 1	
+	}
+	fly.pth = smooth( fly.cp, 10 )
 end
 
 
@@ -192,6 +229,9 @@ function love.update(dt)
 	collisionsbulletmenu(dt)
 	collisionalienmenu()
 	positiontitulo(dt)
+	
+	--spline
+	fly:update( dt )
 
 	-- Para que el avión no se vaya de la pantalla
 	if ventana == false then
@@ -257,6 +297,9 @@ function love.draw()
 	if game_state == 'menu' then
 		--Emisor de partículas
 		love.graphics.draw(psystem, enemymenu.x - 5, enemymenu.y + 44)
+		
+		--spline
+		gr.draw(fly.imagene,fly.pth[fly.step][1],fly.pth[fly.step][2]) 
 		
 		draw_menu()
 		pierde:play()
